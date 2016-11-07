@@ -53,10 +53,16 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 6. A continuación, hay más de una docena de tramas TCP/HTTP.
  ** ¿Podrías decir la URL que se está pidiendo?
+	   La URL que se esta pidiendo es http://ekiga.net/ip/. Lo comprobamos llendo al paquete HTTP, en el campo Full request URI
+ 
  ** ¿Qué user agent (UA) la está pidiendo?
- ** ¿Qué devuelve el servidor?
- ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo que está respondiendo el servidor?
+	El User Agent es Ekiga. Lo comprobamos en el campo User Agent del apartado HTTP
 
+ ** ¿Qué devuelve el servidor?
+	Para comprobarlo vamos al paquete en el que se envía un 200 OK. Vamos al apartado de HTTP, en el campo Line-based text data: text/html vemos que se devuelve una IP que es la IP pública de la máquina 192.168.1.34.
+
+ ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo que está respondiendo el servidor?
+	Recibimos una ip publica que, concretamente, es nuestra IP pública.
 
 7. Hasta la trama 45 se puede observar una secuencia de tramas del protocolo STUN.
  ** ¿Por qué crees que se hace uso de este protocolo en esta captura? Busca en la Wikipedia.
