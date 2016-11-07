@@ -211,8 +211,12 @@ Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.ne
 
 17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
  ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
+	Se usa DNS y STUN para ver si se está detrás de un NAT o si es una red pública o privada; en este caso, estamos usando la IP pública, y por lo tanto no necesitaremos ninguno de los dos protocolos anteriores.
  ** ¿Son diferentes el registro y la descripción de la sesión?
-
+Podemos ver que son diferentes en el campo Allow, ya que el REGISTER que hemos capturado tiene el siguiente campo: 
+    Allow: INVITE,ACK,OPTIONS,BYE,CANCEL,SUBSCRIBE,NOTIFY,REFER,MESSAGE,INFO,PING,PRACK, es decir, permite los métodos que se mencionan en dicho campo. 
+    En cambio en la captura que analizamos con anterioridad podemos observar que el campo Allow era más reducido, ya que solamente permitía los métodos: INVITE, ACK, OPTIONS, BYE, CANCEL, NOTIFY, REFER, MESSAGE.
+    Otra de las diferencias es que se emplean puertos distintos.
 
 18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
  ** ¿Cuántos flujos tenemos?
