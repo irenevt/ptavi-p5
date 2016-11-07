@@ -190,8 +190,13 @@ Los SSRCs los vemos en las tramas en Synchronization Source Identifier. En nuest
 
 16. Finalmente, se cierra la aplicación de VozIP.
  ** ¿Por qué aparece una instrucción SIP del tipo REGISTER?
+	En el paquete que se incluye el método REGISTER en el final de la comunicación vemos que se envía el campo Expires con valo 0. Esto quiere decir que el usuario envía este mensaje para poder darse de baja, es decir, que el servidor le borre de la lista y poder terminar la sesión.
+
  ** ¿En qué trama sucede esto?
+	Paquete 952.
+
  ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
+	El campo Expires. En el inicio, tenía un valor de 3600 segundos, y ahora, como hemos dicho en la primera pregunta, es de 0 segundos.
 
 
 
