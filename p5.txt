@@ -149,17 +149,35 @@ Los valores de jitter máximo los miramos en Max Jitter (ms), y son los siquient
 
 13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony -> RTP -> Stream Analysis.
  ** ¿Cuánto valen el delta y el jitter para el primer paquete que ha llegado?
- ** ¿Podemos saber si éste es el primer paquete que nos han enviado?
- ** Los valores de jitter son menores de 10ms hasta un paquete dado. ¿Cuál?
- ** ¿A qué se debe el cambio tan brusco del jitter?
- ** ¿Es comparable este cambio con el tiempo desde la recepción del paquete anterior? ¿Por qué?
- ** ¿Cuál es la dependencia entre el tiempo transcurrido desde el paquete anterior y el valor de jitter?
+	PACKET  DELTA(ms) FILTERED JITTER(ms)
+	 113     0.00      O.OO
 
+ ** ¿Podemos saber si éste es el primer paquete que nos han enviado?
+	Sí, porque es el primer paquete con el número de secuencia más pequeño.
+
+ ** Los valores de jitter son menores de 10ms hasta un paquete dado. ¿Cuál?
+	El paquete 246 es el último que tiene un jitter menor de 10ms.
+
+ ** ¿A qué se debe el cambio tan brusco del jitter?
+	 Este cambio tan brusco del jitter se debe a un cambio también muy brusco en el valor de delta, que ahora es de 554,74ms, esto implica un cambio muy grande en la velocidad de transimisión de los paquetes.
+
+ ** ¿Es comparable este cambio con el tiempo desde la recepción del paquete anterior? ¿Por qué?
+	Podemos ver que si que es comparable, ya que como hemos visto anteriormente el jitter varía en función del valor de la delta, que nos da la diferencia de teimpo entre el envío de un paquete y el anterior. En este caso al tener un aumento considerable de la delta el paquete llegará mucho más tarde comparado con los paquetes enviados con anterioridad.
+
+ ** ¿Cuál es la dependencia entre el tiempo transcurrido desde el paquete anterior y el valor de jitter?
+	 El jitter mantiene una relación directa con el tiempo (el retardo), entonces, si no uno aumenta bruscamente, el otro también.
 
 14. En Telephony selecciona el menú VoIP calls. Verás que se lista la llamada de voz IP capturada en una ventana emergente. Selecciona esa llamada y pulsa el botón Graph.
  ** ¿Cuánto dura la conversación?
- ** ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
+	 Vemos que la conversación empieza en el 14.426793 y terminca en el 39.229683 por lo que la llamada dura 24.80289 segundos.
 
+ ** ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
+Los SSRCs los vemos en las tramas en Synchronization Source Identifier. En nuestra captura tenemos dos SSRC-. una de audio y otra de vídeo:
+    En los paquetes de G.711 (paquetes de audio) vemos que nos encontramos con: Synchronization Source identifier: 0xbf4afd37 (3209362743), por lo que en este caso el SSRC es 
+    0xbf4afd37 (3209362743).
+    En los paquetes de H.261 (paquetes de vídeo) observamos que tenemos: Synchronization Source identifier: 0x43306582 (1127245186), es decir, el SSRC será  0x43306582 (1127245186)
+    Tenemos varios paquetes SSRCs porque tenemos dos flujos: uno de audio y otro de vídeo.
+    Para poder ver si hay CSRCs tenemos que mirar en el campo Contributing source identifiers count, que aparecerá con valor cero si no hay CSRCs y con otro valor si existe CSRC. Si no hay CSRC quiere decir que nuetsros SSRCs no pasan por mezcladores. En RTP vemos que encontramos el campo Contributing source identifiers count a cero, es decir, no hay CSRCs. En paquetes de RTCP se ve que el campo de CSRC aparece a uno.
 
 15. Identifica la trama donde se finaliza la conversación.
  ** ¿Qué método SIP se utiliza?
